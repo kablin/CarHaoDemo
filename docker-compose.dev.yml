@@ -1,0 +1,114 @@
+version: '3'
+services:
+  cardb:
+    container_name: car-db
+    image: mysql/mysql-server:8.0
+    restart: always
+    ports:
+      - '3328:3306'
+    environment:
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - ./docker/db/:/var/lib/mysql
+ 
+    networks:
+      - carnet
+ 
+
+  carnginx:
+    container_name: car-nginx
+    depends_on:
+      - carfpm
+    build:
+      context: ./
+      dockerfile: docker/nginx.docker
+
+    volumes:
+      - ./:/var/www
+    ports:
+      - "449:443"
+      - "100:80"
+    networks:
+      - carnet
+
+
+
+  carfpm:
+    container_name: car-fpm
+    depends_on:
+      - cardb
+    build:
+      context: ./
+      args:
+        USER_ID: ${USER_ID:-0}
+        GROUP_ID: ${GROUP_ID:-0}
+      dockerfile: docker/php-fpm.docker
+    volumes:
+      - ./:/var/www
+    environment:
+      - "DB_PORT=3306"
+      - "DB_HOST=cardb"
+    networks:
+      - carnet
+
+
+  caradminer:
+    container_name: car-adminer
+    image: adminer
+    restart: always
+    ports:
+      - 50100:8080
+    networks:
+      - carnet
+
+
+  carnode:
+    container_name: car-node
+    image: node:20
+    tty: true
+    working_dir: /var/www
+    volumes:
+      - ./:/var/www
+    ports:
+      - "8001:8000"
+      - "5184:5184"
+    networks:
+      - carnet
+
+  carcli:
+    container_name: car-cli
+    restart: always
+    build:
+      context: ./
+      args:
+        USER_ID: ${USER_ID:-0}
+        GROUP_ID: ${GROUP_ID:-0}
+      dockerfile: docker/php-cli.docker
+    volumes:
+        - ./:/var/www
+        - ./docker/composer:/var/composer
+    tty: true
+    environment:
+        - "DB_PORT=3306"
+        - "DB_HOST=cardb"
+        - "COMPOSER_MEMORY_LIMI3306T=-1"
+    depends_on:
+        - cardb
+    ports:
+      - "7021:8000"
+    networks:
+      - carnet
+
+
+
+
+networks:
+  carnet:
+    driver: bridge
+    driver_opts:
+      com.docker.network.driver.mtu: 1450
+    
+      
