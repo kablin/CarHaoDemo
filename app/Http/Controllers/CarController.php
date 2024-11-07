@@ -19,6 +19,9 @@ class CarController extends Controller
         $data =Car::with('engine_type')->with('car_model', fn($a) => $a->with('brand'))->with('drive_type')->with('images');
         
         if ($request->get('filter_model')) $data=$data->where('car_model_id',$request->get('filter_model'));
+        if ($request->get('filter_drive')) $data=$data->where('drive_type_id',$request->get('filter_drive'));
+        if ($request->get('filter_engine')) $data=$data->where('engine_type_id',$request->get('filter_engine'));
+
         if ($request->get('filter_brand')) $data=$data->whereHas('car_model', function($q) use ($request) {
             $q->where('brand_id',$request->get('filter_brand'));
         });

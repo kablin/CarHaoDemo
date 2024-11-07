@@ -95,6 +95,8 @@ const fetchRows = async () => {
         }
         response.value = await axios.get("/getCarsList", { params })
 
+        if (response.value.data.last_page < page.value)  page.value = response.value.data.last_page
+
         setParams()
     } catch (error) {
 
@@ -261,7 +263,7 @@ getGuides()
                     </td>
 
                     <td class="p-4 border-b border-blue-gray-50 max-w-24">
-                        <!--Carousel v-bind="config">
+                        <Carousel v-bind="config">
                             <Slide v-for="(image) in line.images" :key="image">
                                 <div @click="image_path = image.path; modal.show()">
                                     <img class="h-auto max-w-20" :src="image.path">
@@ -272,7 +274,7 @@ getGuides()
                                 <Pagination />
 
                             </template>
-                        </Carousel-->
+                        </Carousel>
                     </td>
                 </tr>
 
