@@ -60,7 +60,7 @@ class DatabaseSeeder extends Seeder
 
         \App\Models\Brand::factory(8)->create();
         \App\Models\Car_model::factory(40)->create();
-        \App\Models\Car::factory(100)->create();
+        \App\Models\Car::factory(1000)->create();
 
         \App\Models\Car::query()->get()->map(function ($car) {
             \App\Models\Image::factory()->create([
