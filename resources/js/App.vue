@@ -58,6 +58,9 @@ const url_init = ref(false)
 const guides_init = ref(false)
 
 
+const timer = ref()
+const sliding = ref(false)
+
 let modal
 
 
@@ -67,7 +70,7 @@ const query = computed(() => route.query)
 watch(query, newquery => {
     if (!url_init.value) {
 
-        if (page.value != newquery.currentPage ) page.value = newquery.currentPage
+        if (page.value != newquery.currentPage) page.value = newquery.currentPage
         if (rowPerPage.value != newquery.perPage && newquery.perPage != undefined) rowPerPage.value = newquery.perPage
         if (filter_model.value != newquery.filter_model) filter_model.value = newquery.filter_model
         if (filter_brand.value != newquery.filter_brand) filter_brand.value = newquery.filter_brand
@@ -119,7 +122,7 @@ const setParams = () => {
 
 
 const fetchRows = async () => {
-    if (url_init.value && guides_init.value)
+    if (url_init.value && guides_init.value && !sliding.value)
         try {
 
             filter_price_min.value = filter_price.value[0]
@@ -230,7 +233,14 @@ const selectBrand = () => {
 }
 
 
+const wait = () => {
+    clearTimeout(timer.value)
+    sliding.value = true
 
+    timer.value = setTimeout(function () {
+        sliding.value = false
+    }, 800);
+}
 
 
 watchEffect(fetchRows);
@@ -351,7 +361,7 @@ watchEffect(fetchRows);
                         <div
                             class="block mt-3 font-sans text-sm antialiased font-normal leading-none text-blue-gray-900 opacity-70">
                             {{ filter_year[0] }} - {{ filter_year[1] }} </div>
-                        <Slider :min="limits.min_year" :max="limits.max_year" v-model="filter_year" range
+                        <Slider @change="wait" :min="limits.min_year" :max="limits.max_year" v-model="filter_year" range
                             class="w-full  mt-3" />
 
                     </th>
@@ -364,7 +374,7 @@ watchEffect(fetchRows);
                         <div
                             class="block mt-3 font-sans text-sm antialiased font-normal leading-none text-blue-gray-900 opacity-70">
                             {{ filter_price[0] }} - {{ filter_price[1] }} </div>
-                        <Slider :min="limits.min_price" :max="limits.max_price" v-model="filter_price" range
+                        <Slider @change="wait" :min="limits.min_price" :max="limits.max_price" v-model="filter_price" range
                             class="w-full  mt-3" />
                     </th>
                     <th class="p-4 border-b border-blue-gray-100 bg-blue-gray-50">
