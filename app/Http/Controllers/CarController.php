@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Car;
 
+use Illuminate\Support\Facades\Log;
+
 class CarController extends Controller
 {
     
@@ -26,7 +28,12 @@ class CarController extends Controller
             $q->where('brand_id',$request->get('filter_brand'));
         });
         
+        if ($request->get('filter_price_min') && $request->get('filter_price_max')) $data=$data->whereBetween('price',[$request->get('filter_price_min'),$request->get('filter_price_max')]);
+
+        if ($request->get('filter_year_min') && $request->get('filter_year_max')) $data=$data->whereBetween('manufactured_year',[ $request->get('filter_year_min').'-01-01',$request->get('filter_year_max').'-12-31']);
        
+       
+//          Log::info( $data->toSql());
 
         $data=$data->paginate($perPage, ['*'], null, $currentPage);
         
@@ -42,6 +49,15 @@ class CarController extends Controller
         $data['engine_types'] =\App\Models\Engine_type::all();
         $data['brands'] =\App\Models\Brand::all();
         $data['dive_types'] =\App\Models\Drive_type::all();
+
+        $data['limits']=[];
+        $data['limits']['max_price'] =Car::max('price');
+        $data['limits']['min_price'] =Car::min('price');
+        $data['limits']['max_date'] =Car::max('manufactured_year');
+        $data['limits']['min_date'] =Car::min('manufactured_year');        
+
+        
+        
         
 
         return json_encode($data);

@@ -222,6 +222,34 @@
   resolved "https://registry.yarnpkg.com/@popperjs/core/-/core-2.11.8.tgz#6b79032e760a0899cd4204710beede972a3a185f"
   integrity sha512-P1st0aksCrn9sGZhp8GMYwBnQsbvAWsZAX44oXNNvLHGqAOcoVxmjZiohstwQ7SqKnbR47akdNi+uleWD8+g6A==
 
+"@primeuix/styled@^0.3.0":
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/@primeuix/styled/-/styled-0.3.0.tgz#d48ca35b5a6129e465da9baedc2c721728ec646d"
+  integrity sha512-XsLbmyM1u50A0EDATIHyqm5O/zOCSyNKPk4pNN8HFvEPehbsjf4tkXcRZAyaVvntSCLpV4XGAj7v5EDCQkBRlg==
+  dependencies:
+    "@primeuix/utils" "^0.3.0"
+
+"@primeuix/utils@^0.3.0":
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/@primeuix/utils/-/utils-0.3.0.tgz#7e49c8bf6f97af7740902d51cdefd497ea13fdc0"
+  integrity sha512-d6ymWez1n+iqwzAVhyOTmrOHl5qnSX2oGlTy97qGuA15gLai+MQaxONHFNdDia8Q7o396v7KK9IvhAx9VET/+A==
+
+"@primevue/core@4.2.1":
+  version "4.2.1"
+  resolved "https://registry.yarnpkg.com/@primevue/core/-/core-4.2.1.tgz#485325125da594406a45cd6253f93dbc13813a7f"
+  integrity sha512-L81TZSZU8zRznIi2g6IWwlZ5wraaE8DrNUJyxieCRCTpbSF3rSlYmhDEuzal8PfE0RuvXpRsxqedTHxz5cdqPg==
+  dependencies:
+    "@primeuix/styled" "^0.3.0"
+    "@primeuix/utils" "^0.3.0"
+
+"@primevue/icons@4.2.1":
+  version "4.2.1"
+  resolved "https://registry.yarnpkg.com/@primevue/icons/-/icons-4.2.1.tgz#b5ff7ca260a6003ed101b46fbfc10ec3f1b84105"
+  integrity sha512-TOhxgkcmgBqmlHlf2x+gs4874iHopkow0gRAC5FztZTgTZQrqy8hPIA9b4O1lW7P6GOjGuVIwSH8y2lw6Q8koA==
+  dependencies:
+    "@primeuix/utils" "^0.3.0"
+    "@primevue/core" "4.2.1"
+
 "@rollup/plugin-node-resolve@^15.2.3":
   version "15.3.0"
   resolved "https://registry.yarnpkg.com/@rollup/plugin-node-resolve/-/plugin-node-resolve-15.3.0.tgz#efbb35515c9672e541c08d59caba2eff492a55d5"
@@ -1029,6 +1057,15 @@ postcss-import@^15.1.0:
     read-cache "^1.0.0"
     resolve "^1.1.7"
 
+postcss-import@^16.1.0:
+  version "16.1.0"
+  resolved "https://registry.yarnpkg.com/postcss-import/-/postcss-import-16.1.0.tgz#258732175518129667fe1e2e2a05b19b5654b96a"
+  integrity sha512-7hsAZ4xGXl4MW+OKEWCnF6T5jqBw80/EE9aXg1r2yyn1RsVEU8EtKXbijEODa+rg7iih4bKf7vlvTGYR4CnPNg==
+  dependencies:
+    postcss-value-parser "^4.0.0"
+    read-cache "^1.0.0"
+    resolve "^1.1.7"
+
 postcss-js@^4.0.1:
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/postcss-js/-/postcss-js-4.0.1.tgz#61598186f3703bab052f1c4f7d805f3991bee9d2"
@@ -1072,6 +1109,16 @@ postcss@^8.4.23, postcss@^8.4.43, postcss@^8.4.47:
     nanoid "^3.3.7"
     picocolors "^1.1.0"
     source-map-js "^1.2.1"
+
+primevue@^4.2.1:
+  version "4.2.1"
+  resolved "https://registry.yarnpkg.com/primevue/-/primevue-4.2.1.tgz#31c206b60ea9fef4c3f069b49a92e8cce3ad0498"
+  integrity sha512-cU9ZQVq9fitsQEIrfGeIl7xELBn61JCMxWkzcS9dkr165g29AvUrUNS9ufs1t2NoMJzE8VllwzweF/tSFAr2cw==
+  dependencies:
+    "@primeuix/styled" "^0.3.0"
+    "@primeuix/utils" "^0.3.0"
+    "@primevue/core" "4.2.1"
+    "@primevue/icons" "4.2.1"
 
 proxy-from-env@^1.1.0:
   version "1.1.0"
@@ -1218,6 +1265,11 @@ supports-preserve-symlinks-flag@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/supports-preserve-symlinks-flag/-/supports-preserve-symlinks-flag-1.0.0.tgz#6eda4bd344a3c94aea376d4cc31bc77311039e09"
   integrity sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==
+
+tailwindcss-primeui@^0.3.4:
+  version "0.3.4"
+  resolved "https://registry.yarnpkg.com/tailwindcss-primeui/-/tailwindcss-primeui-0.3.4.tgz#20fceeb458e69f0b523e6ecc26a98e3f8b11e794"
+  integrity sha512-5+Qfoe5Kpq2Iwrd6umBUb3rQH6b7+pL4jxJUId0Su5agUM6TwCyH5Pyl9R0y3QQB3IRuTxBNmeS11B41f+30zw==
 
 tailwindcss@^3.4.14:
   version "3.4.14"
